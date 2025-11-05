@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Car Consultancy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="checkout-styles.css" />
+</head>
+<body class="checkout-page">
+  <header class="checkout-header">
+    <img src="assets/logo.svg" alt="MotorCar Consultancy" class="checkout-logo" />
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-container">
+      <h1 class="checkout-title">Fill in your details below to book your service</h1>
+      
+      <div class="checkout-content">
+        <!-- Left Column - Billing Details -->
+        <div class="billing-section">
+          <h2>Billing Details</h2>
+          <form class="billing-form" id="checkoutForm">
+            <div class="form-group">
+              <input type="text" id="fullName" name="fullName" placeholder="Full Name" required />
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Email Address" required />
+            </div>
+            
+            <div class="form-group">
+              <input type="tel" id="whatsapp" name="whatsapp" placeholder="Whatsapp No" required />
+            </div>
+            
+            <div class="form-group">
+              <input type="text" id="pincode" name="pincode" placeholder="PIN Code" />
+            </div>
+            
+            <div class="form-group">
+              <label for="budget">Car Buying Budget <span class="required">*</span></label>
+              <select id="budget" name="budget" required>
+                <option value="">Under Rs. 5 Lakhs</option>
+                <option value="5-10">Rs. 5-10 Lakhs</option>
+                <option value="10-15">Rs. 10-15 Lakhs</option>
+                <option value="15-25">Rs. 15-25 Lakhs</option>
+                <option value="25+">Above Rs. 25 Lakhs</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Priority you need in a car (optional)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="safety" />
+                  <span class="checkmark"></span>
+                  Safety
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="features" />
+                  <span class="checkmark"></span>
+                  Features
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="performance" />
+                  <span class="checkmark"></span>
+                  Performance
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="mileage" />
+                  <span class="checkmark"></span>
+                  Mileage
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="comfort" />
+                  <span class="checkmark"></span>
+                  Comfort
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="maintenance" />
+                  <span class="checkmark"></span>
+                  Low Maintenance
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="reliability" />
+                  <span class="checkmark"></span>
+                  Reliability
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="resale" />
+                  <span class="checkmark"></span>
+                  Resale
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="priority" value="space" />
+                  <span class="checkmark"></span>
+                  Space
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <textarea id="shortlist" name="shortlist" placeholder="Top 3 Cars Shortlisted" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="source">How did you hear about us? (optional)</label>
+              <select id="source" name="source">
+                <option value="youtube">YouTube</option>
+                <option value="google">Google Search</option>
+                <option value="social">Social Media</option>
+                <option value="friend">Friend/Family</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <textarea id="comments" name="comments" placeholder="Comments (If Any)" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="state">State (optional)</label>
+              <select id="state" name="state">
+                <option value="maharashtra">Maharashtra</option>
+                <option value="delhi">Delhi</option>
+                <option value="bangalore">Karnataka</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Right Column - Order Summary -->
+        <div class="order-section">
+          <h2>Your Order</h2>
+          <div class="order-summary">
+            <div class="order-header">
+              <span>Product</span>
+              <span>Subtotal</span>
+            </div>
+            
+            <div class="order-items" id="orderItems">
+              <div class="order-item">
+                <div class="item-details">
+                  <span class="item-name">Call with an Auto-Expert</span>
+                  <div class="quantity-controls">
+                    <button type="button" class="qty-btn" onclick="updateQuantity('auto-expert', -1)">-</button>
+                    <span class="quantity" id="qtyAutoExpert">1</span>
+                    <button type="button" class="qty-btn" onclick="updateQuantity('auto-expert', 1)">+</button>
+                  </div>
+                </div>
+                <span class="item-price" id="priceAutoExpert">₹200.00</span>
+              </div>
+            </div>
+            
+            <div class="order-totals">
+              <div class="total-line">
+                <span>Subtotal</span>
+                <span id="subtotal">₹200.00</span>
+              </div>
+              <div class="total-line final-total">
+                <span>Total</span>
+                <span id="total">₹200.00</span>
+              </div>
+            </div>
+            
+            <div class="coupon-section">
+              <p>Have a coupon? <a href="#" class="coupon-link">Click here to enter your coupon code</a></p>
+            </div>
+            
+            <div class="payment-section">
+              <div class="payment-method">
+                <img src="assets/payu-logo.svg" alt="PayU" class="payment-logo" />
+                <div class="payment-info">
+                  <h3>Credit/Debit Card & NetBanking Payment</h3>
+                  <p>Pay securely by UPI, Cards, Net Banking or Wallets through PayU.</p>
+                </div>
+              </div>
+              
+              <div class="payment-notice">
+                <p><strong>Please be advised that once booked, this service is non-refundable.</strong></p>
+                <p class="privacy-text">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="#" class="privacy-link">privacy policy</a>.</p>
+              </div>
+              
+              <div class="terms-section">
+                <label class="checkbox-item terms-checkbox">
+                  <input type="checkbox" id="agreeTerms" required />
+                  <span class="checkmark"></span>
+                  I have read and agree to the website <a href="#" class="terms-link">terms and conditions</a> <span class="required">*</span>
+                </label>
+              </div>
+              
+              <button type="submit" class="place-order-btn" form="checkoutForm">Place order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="checkout.js"></script>
+</body>
+</html>

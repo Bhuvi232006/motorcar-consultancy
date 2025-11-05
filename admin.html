@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - MotorCar Consultancy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: #1a1a1a;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e31b23;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #e31b23;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .refresh-btn {
+            background: #e31b23;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .refresh-btn:hover {
+            background: #c21b23;
+        }
+        
+        .request-item {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .request-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .request-header:hover {
+            background: #e9ecef;
+        }
+        
+        .request-info {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .request-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .request-service {
+            background: #e31b23;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+        
+        .request-date {
+            color: #666;
+            font-size: 0.875rem;
+        }
+        
+        .request-details {
+            padding: 1rem;
+            background: #fafbfc;
+            display: none;
+        }
+        
+        .request-details.show {
+            display: block;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .detail-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.875rem;
+        }
+        
+        .detail-value {
+            color: #333;
+            margin-top: 0.25rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c66;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .request-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🚗 MotorCar Consultancy - Admin Panel</h1>
+    </header>
+    
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalRequests">-</div>
+                <div class="stat-label">Total Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayRequests">-</div>
+                <div class="stat-label">Today's Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="serviceSelections">-</div>
+                <div class="stat-label">Service Selections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="contactSubmissions">-</div>
+                <div class="stat-label">Contact Messages</div>
+            </div>
+        </div>
+        
+        <!-- Consultation Requests -->
+        <div class="section">
+            <div class="section-header">
+                📋 Consultation Requests
+            </div>
+            <div class="section-content">
+                <button class="refresh-btn" onclick="loadData()">🔄 Refresh Data</button>
+                <div id="consultationRequests" class="loading">Loading requests...</div>
+            </div>
+        </div>
+        
+        <!-- Service Selections -->
+        <div class="section">
+            <div class="section-header">
+                🎯 Service Selections
+            </div>
+            <div class="section-content">
+                <div id="serviceSelections" class="loading">Loading service selections...</div>
+            </div>
+        </div>
+        
+        <!-- Contact Submissions -->
+        <div class="section">
+            <div class="section-header">
+                💬 Contact Messages
+            </div>
+            <div class="section-content">
+                <div id="contactMessages" class="loading">Loading contact messages...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load all data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
+        
+        async function loadData() {
+            try {
+                // Update loading states
+                document.getElementById('consultationRequests').innerHTML = '<div class="loading">Loading requests...</div>';
+                document.getElementById('serviceSelections').innerHTML = '<div class="loading">Loading service selections...</div>';
+                document.getElementById('contactMessages').innerHTML = '<div class="loading">Loading contact messages...</div>';
+                
+                // Load all data in parallel
+                await Promise.all([
+                    loadConsultationRequests(),
+                    loadServiceSelections(),
+                    loadContactMessages(),
+                    loadStatistics()
+                ]);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Failed to load data. Make sure the server is running on port 3000.');
+            }
+        }
+        
+        async function loadConsultationRequests() {
+            try {
+                const response = await fetch('/api/consultation-requests');
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayConsultationRequests(result.data);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                document.getElementById('consultationRequests').innerHTML = 
+                    `<div class="error">Error loading consultation requests: ${error.message}</div>`;
+            }
+        }
+        
+        async function loadServiceSelections() {
+            try {
+                const response = await fetch('/api/service-selections');
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayServiceSelections(result.data);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                document.getElementById('serviceSelections').innerHTML = 
+                    `<div class="error">Error loading service selections: ${error.message}</div>`;
+            }
+        }
+        
+        async function loadContactMessages() {
+            try {
+                const response = await fetch('/api/contact-messages');
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayContactMessages(result.data);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                document.getElementById('contactMessages').innerHTML = 
+                    `<div class="error">Error loading contact messages: ${error.message}</div>`;
+            }
+        }
+        
+        async function loadStatistics() {
+            try {
+                // This would normally call a statistics API endpoint
+                // For now, we'll calculate from the data we have
+                document.getElementById('totalRequests').textContent = '-';
+                document.getElementById('todayRequests').textContent = '-';
+                document.getElementById('serviceSelections').textContent = '-';
+                document.getElementById('contactSubmissions').textContent = '-';
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+            }
+        }
+        
+        function displayConsultationRequests(requests) {
+            const container = document.getElementById('consultationRequests');
+            
+            if (requests.length === 0) {
+                container.innerHTML = '<p class="loading">No consultation requests found.</p>';
+                return;
+            }
+            
+            const html = requests.map(request => `
+                <div class="request-item">
+                    <div class="request-header" onclick="toggleDetails('request-${request._id}')">
+                        <div class="request-info">
+                            <div class="request-name">${request.customerInfo.fullName}</div>
+                            <div class="request-service">${formatService(request.serviceDetails.service)}</div>
+                            <div class="request-date">${formatDate(request.createdAt)}</div>
+                        </div>
+                        <div>₹${request.serviceDetails.totalAmount}</div>
+                    </div>
+                    <div class="request-details" id="request-${request._id}">
+                        <div class="detail-grid">
+                            <div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Email</div>
+                                    <div class="detail-value">${request.customerInfo.email}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">WhatsApp</div>
+                                    <div class="detail-value">${request.customerInfo.whatsapp}</div>
+                                </div>
+                                ${request.customerInfo.pincode ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">PIN Code</div>
+                                    <div class="detail-value">${request.customerInfo.pincode}</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            <div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Service</div>
+                                    <div class="detail-value">${formatService(request.serviceDetails.service)}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Amount</div>
+                                    <div class="detail-value">₹${request.serviceDetails.totalAmount}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Status</div>
+                                    <div class="detail-value">${request.status}</div>
+                                </div>
+                            </div>
+                            ${request.carDetails ? `
+                            <div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Budget</div>
+                                    <div class="detail-value">${request.carDetails.budget || 'Not specified'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Car Type</div>
+                                    <div class="detail-value">${request.carDetails.carType || 'Not specified'}</div>
+                                </div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Fuel Type</div>
+                                    <div class="detail-value">${request.carDetails.fuelType || 'Not specified'}</div>
+                                </div>
+                            </div>
+                            ` : ''}
+                            ${request.additionalInfo ? `
+                            <div style="grid-column: 1 / -1;">
+                                <div class="detail-item">
+                                    <div class="detail-label">Additional Information</div>
+                                    <div class="detail-value">${request.additionalInfo}</div>
+                                </div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+            
+            // Update statistics
+            document.getElementById('totalRequests').textContent = requests.length;
+            
+            // Count today's requests
+            const today = new Date().toDateString();
+            const todayCount = requests.filter(r => 
+                new Date(r.createdAt).toDateString() === today
+            ).length;
+            document.getElementById('todayRequests').textContent = todayCount;
+        }
+        
+        function displayServiceSelections(selections) {
+            const container = document.getElementById('serviceSelections');
+            
+            if (selections.length === 0) {
+                container.innerHTML = '<p class="loading">No service selections found.</p>';
+                return;
+            }
+            
+            // Group by service type
+            const grouped = selections.reduce((acc, selection) => {
+                acc[selection.service] = (acc[selection.service] || 0) + 1;
+                return acc;
+            }, {});
+            
+            const html = Object.entries(grouped).map(([service, count]) => `
+                <div class="request-item">
+                    <div class="request-header">
+                        <div class="request-info">
+                            <div class="request-name">${formatService(service)}</div>
+                            <div class="request-service">${count} selections</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+            document.getElementById('serviceSelections').textContent = selections.length;
+        }
+        
+        function displayContactMessages(messages) {
+            const container = document.getElementById('contactMessages');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<p class="loading">No contact messages found.</p>';
+                return;
+            }
+            
+            const html = messages.map(message => `
+                <div class="request-item">
+                    <div class="request-header" onclick="toggleDetails('message-${message._id}')">
+                        <div class="request-info">
+                            <div class="request-name">${message.name}</div>
+                            <div class="request-service">${message.subject}</div>
+                            <div class="request-date">${formatDate(message.createdAt)}</div>
+                        </div>
+                    </div>
+                    <div class="request-details" id="message-${message._id}">
+                        <div class="detail-grid">
+                            <div>
+                                <div class="detail-item">
+                                    <div class="detail-label">Email</div>
+                                    <div class="detail-value">${message.email}</div>
+                                </div>
+                                ${message.phone ? `
+                                <div class="detail-item">
+                                    <div class="detail-label">Phone</div>
+                                    <div class="detail-value">${message.phone}</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            <div style="grid-column: 1 / -1;">
+                                <div class="detail-item">
+                                    <div class="detail-label">Message</div>
+                                    <div class="detail-value">${message.message}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+            document.getElementById('contactSubmissions').textContent = messages.length;
+        }
+        
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.classList.toggle('show');
+            }
+        }
+        
+        function formatService(service) {
+            const services = {
+                'whatsapp': 'WhatsApp Consultation',
+                'auto-expert': 'Call with Auto-Expert',
+                '2-calls': '2 Phone Calls',
+                '4-calls': '4 Phone Calls with Auto Expert',
+                'express': 'Express Call',
+                'senior': 'Senior Consultant'
+            };
+            return services[service] || service;
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+        
+        function showError(message) {
+            const sections = ['consultationRequests', 'serviceSelections', 'contactMessages'];
+            sections.forEach(section => {
+                document.getElementById(section).innerHTML = 
+                    `<div class="error">${message}</div>`;
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Car Consultancy — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <img src="assets/logo.svg" alt="MotorCar Consultancy" class="site-logo" />
+    <a href="/admin" class="admin-link" title="Admin Panel">👤 Admin</a>
+  </header>
+
+  <main class="hero">
+    <section class="hero-left" aria-hidden="true">
+      <!-- Collage of placeholder images (replace with real photos in assets/) -->
+      <div class="collage">
+        <img src="assets/car1.svg" class="tile t1" alt="" />
+        <img src="assets/car2.svg" class="tile t2" alt="" />
+        <img src="assets/car3.svg" class="tile t3" alt="" />
+        <img src="assets/car4.svg" class="tile t4" alt="" />
+        <img src="assets/car5.svg" class="tile t5" alt="" />
+        <img src="assets/car6.svg" class="tile t6" alt="" />
+      </div>
+      <div class="collage-overlay"></div>
+    </section>
+
+    <section class="hero-right">
+      <div class="hero-content">
+        <h1 class="headline">Trusted by
+          <span class="highlight">70 Lakh Indians</span>
+          and Counting!
+        </h1>
+        <p class="cta-note">Expert advice • Verified dealers • Hassle-free buying</p>
+        <a class="btn-consult" href="consult.html">CONSULT NOW</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-us">
+    <div class="container">
+      <h2 class="section-title">Why Choose <span class="highlight-text">Us?</span></h2>
+      
+      <div class="features-grid">
+        <div class="feature-card orange flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="feature-content">
+                <h3>CONSULTATION FROM</h3>
+                <div class="feature-highlight">EXPERIENCED</div>
+                <h3>AUTO EXPERTS</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div class="feature-content">
+                <p class="flip-text">At MotorCar, we bring years of hands-on experience and deep industry knowledge to every consultation. Our team of seasoned auto experts is dedicated to providing accurate, reliable, and practical solutions tailored to your needs. Whether you're seeking car-buying advice or trying to find the perfect car that ticks all the right boxes based on your priorities, we offer honest and unbiased expert guidance you can trust. With a commitment to excellence and customer satisfaction, we ensure you make informed decisions with confidence. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card red flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="feature-content">
+                <h3>SAVES YOUR</h3>
+                <h3>TIME <span class="ampersand">&</span> MONEY</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div class="feature-content">
+                <p class="flip-text">We simplify your car-buying journey by providing expert, data-driven advice tailored to your needs. Our in-depth research and industry insights help you find the best car at the right price—without wasting time on endless comparisons or risking costly mistakes. With our guidance, you get the most value for your budget, access exclusive deals, and avoid unnecessary expenses. Let us handle the details so you can make a smart, hassle-free purchase with confidence!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card orange flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="feature-content">
+                <div class="feature-highlight">TAILORED</div>
+                <div class="feature-highlight">ADVICE</div>
+                <h3>BASED ON</h3>
+                <h3>YOUR NEEDS</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div class="feature-content">
+                <p class="flip-text">We simplify your car-buying journey by providing expert, data-driven advice tailored to your needs. Our in-depth research and industry insights help you find the best car at the right price—without wasting time on endless comparisons or risking costly mistakes. With our guidance, you get the most value for your budget, access exclusive deals, and avoid unnecessary expenses. Let us handle the details so you can make a smart, hassle-free purchase with confidence!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="feature-card red flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="feature-content">
+                <div class="feature-number">100%</div>
+                <div class="feature-highlight">UNBIASED</div>
+                <h3>RECOMMENDATIONS</h3>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div class="feature-content">
+                <p class="flip-text">We simplify your car-buying journey by providing expert, data-driven advice tailored to your needs. Our in-depth research and industry insights help you find the best car at the right price—without wasting time on endless comparisons or risking costly mistakes. With our guidance, you get the most value for your budget, access exclusive deals, and avoid unnecessary expenses. Let us handle the details so you can make a smart, hassle-free purchase with confidence!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <small>&copy; <span id="year"></span> MotorCar Consultancy</small>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

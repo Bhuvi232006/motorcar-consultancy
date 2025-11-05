@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40" fill="none">
+  <rect width="120" height="40" rx="6" fill="#00C851"/>
+  <text x="15" y="26" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="white">PayU</text>
+  <circle cx="95" cy="20" r="12" fill="rgba(255,255,255,0.2)"/>
+  <path d="M90 20h10M95 15v10" stroke="white" stroke-width="2"/>
+</svg>
